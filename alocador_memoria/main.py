@@ -1,7 +1,7 @@
-"""Simulador de Gerenciamento de Memória.
+"""Simulador de Gerenciamento de Memória
 
-Este módulo implementa um simulador interativo de alocação de memória
-com suporte a diferentes algoritmos (First Fit, Best Fit, Worst Fit).
+Simulação do processo de alocação iterativa de memória
+Utilização dos algoritmos de alocação First Fit, Best Fit e Worst Fit
 """
 
 import sys
@@ -15,8 +15,10 @@ CMD_SHOW = "show"
 CMD_STATS = "stats"
 CMD_EXIT = ["sair", "exit"]
 
+
+# Função principal do simulador
 def main():
-    """Função principal do simulador."""
+
     sim = SimuladorSO()
     print("Simulador de Memória Modularizado.")
     print("Comandos: init <tam>, alloc <tam> <alg>, freeid <id>, show, stats, sair")
