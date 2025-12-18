@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 # Classe abstrata que funciona como uma interface para as estratégias de alocação de memória
 class EstrategiaAlocacao(ABC):
-    """Interface para estratégias de alocação de memória"""
 
     @abstractmethod
     def escolher_bloco(self, memoria, tamanho):

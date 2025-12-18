@@ -18,7 +18,7 @@ class Page:
         return False
 
 class Statistics:
-    """Coleta métricas da simulação."""
+    # Classe criada para aramazenar estatísticas da simulação
     def __init__(self):
         self.total_references = 0
         self.page_faults = 0

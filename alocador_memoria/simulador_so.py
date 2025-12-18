@@ -13,11 +13,6 @@ CHAR_LIVRE = '.'
 CHAR_OCUPADO = '#'
 
 class SimuladorSO:
-    """Simulador de Sistema Operacional com gerenciamento de memória.
-    
-    Implementa algoritmos de alocação (First Fit, Best Fit, Worst Fit)
-    e gerenciamento de fragmentação externa
-    """
     
     # Inicialização do simulador com memória vazia
     def __init__(self):
@@ -28,9 +23,6 @@ class SimuladorSO:
 
     # Inicializa a memória com um único bloco livre 
     def init(self, tamanho):
-        """Args:
-            tamanho: Tamanho total da memória em bytes.
-        """
         self.tamanho_total = tamanho
         self.memoria = [BlocoMemoria(None, tamanho, livre=True)]
         self.next_id = 1
@@ -68,9 +60,6 @@ class SimuladorSO:
 
     # Libera memória de um processo e faz merge de blocos adjacentes.
     def free_id(self, id_alvo):
-        """Args:
-            id_alvo: ID do processo a ser liberado.
-        """
         encontrado = self._liberar_bloco(id_alvo)
         
         if not encontrado:
@@ -81,12 +70,6 @@ class SimuladorSO:
     
     # Libera o bloco de memória de um processo.
     def _liberar_bloco(self, id_alvo):
-        """Args:
-            id_alvo: ID do processo a liberar.
-            
-        Returns:
-            True se o processo foi encontrado e liberado, False caso contrário.
-        """
 
         for bloco in self.memoria:
             if not bloco.livre and bloco.id == id_alvo:
@@ -129,9 +112,6 @@ class SimuladorSO:
     
     # Função que gera as linhas de visualização da memória.
     def _gerar_visualizacao(self):
-        """Returns:
-            Tupla com (linha_uso, linha_ids, info_blocos).
-        """
         linha_uso = ""
         linha_ids = ""
         endereco_atual = 0

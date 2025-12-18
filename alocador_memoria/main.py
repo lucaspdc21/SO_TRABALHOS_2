@@ -1,10 +1,4 @@
-"""Simulador de Gerenciamento de Memória
-
-Simulação do processo de alocação iterativa de memória
-Utilização dos algoritmos de alocação First Fit, Best Fit e Worst Fit
-"""
-
-import sys
+#import sys
 from simulador_so import SimuladorSO
 
 # Comandos disponíveis
@@ -45,13 +39,7 @@ def main():
             print(f"Erro inesperado: {e}")
 
 def processar_comando(sim, cmd, entrada):
-    """Processa um comando do usuário.
-    
-    Args:
-        sim: Instância do SimuladorSO.
-        cmd: Comando a ser executado.
-        entrada: Lista com o comando e seus argumentos.
-    """
+    # Pocessando um comando do usuário, sim: instancia do sim, cmd: comando, entrada: lista com comando e argumentos
     if cmd == CMD_INIT:
         if len(entrada) < 2: 
             raise IndexError
