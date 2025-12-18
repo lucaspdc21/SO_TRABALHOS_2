@@ -1,9 +1,12 @@
 from bloco_memoria import BlocoMemoria
+from estrategias_alocacao import FirstFit, BestFit, WorstFit
 
-# Constantes que definem os algoritmos de alocação
-ALGORITMO_FIRST_FIT = 'first'
-ALGORITMO_BEST_FIT = 'best'
-ALGORITMO_WORST_FIT = 'worst'
+# Mapeamento dos algoritmos
+MAP_STRATEGIES = {
+    "first": FirstFit(),
+    "best": BestFit(),
+    "worst": WorstFit()
+}
 
 # Caracteres para visualização
 CHAR_LIVRE = '.'
@@ -33,52 +36,19 @@ class SimuladorSO:
         self.next_id = 1
         print(f"Memória inicializada com {tamanho} bytes.")
 
-    # Método que seleciona o índice do bloco ideal, baseado no algoritmo de alocação utilizado
-    def choose_block(self, tamanho, alg):
-        """Args:
-            tamanho: Tamanho necessário em bytes.
-            alg: Algoritmo de alocação ('first', 'best', 'worst').
-            
-        Returns:
-            Índice do bloco selecionado ou -1 se nenhum bloco estiver disponível.
-        """
-
-        # Filtra os blocos disponíveis para serem alocados
-        candidatos = [
-            i for i, b in enumerate(self.memoria) 
-            if b.livre and b.tamanho >= tamanho
-        ]
-        
-        if not candidatos:
-            return -1
-        
-        # Seleciona o primeiro bloco disponível
-        if alg == ALGORITMO_FIRST_FIT:
-            return candidatos[0]
-        
-        # Seleciona o bloco mais próximo do tamanho necessário (para minimizar desperdício)
-        elif alg == ALGORITMO_BEST_FIT:
-            candidatos.sort(key=lambda i: self.memoria[i].tamanho - tamanho)
-            return candidatos[0]
-        
-        # Seleciona o maior bloco     
-        elif alg == ALGORITMO_WORST_FIT:
-            candidatos.sort(key=lambda i: self.memoria[i].tamanho - tamanho, reverse=True)
-            return candidatos[0]
-            
-        return -1
-
     # Executa a alocação de memória e divide o bloco (split), o espaço que sobra vira um novo bloco
     def alloc(self, tamanho, alg_nome):
-        """Args:
-            tamanho: Tamanho a ser alocado em bytes.
-            alg_nome: Nome do algoritmo ('first', 'best', 'worst').
-        """
-        alg = alg_nome.lower()
-        idx = self.choose_block(tamanho, alg)
-        
+        alg_nome = alg_nome.lower()
+
+        estrategia = MAP_STRATEGIES.get(alg_nome)
+        if not estrategia:
+            print(f"Erro: Algoritmo '{alg_nome}' inválido.")
+            return
+
+        idx = estrategia.escolher_bloco(self.memoria, tamanho)
+
         if idx == -1:
-            print(f"Erro: Memória insuficiente para alocar {tamanho}B ({alg}).")
+            print(f"Erro: Memória insuficiente para alocar {tamanho}B ({alg_nome}).")
             return
 
         bloco_atual = self.memoria[idx]
@@ -91,10 +61,10 @@ class SimuladorSO:
         bloco_atual.livre = False
 
         if sobra > 0:
-            novo_bloco = BlocoMemoria(None, sobra, livre=True)
-            self.memoria.insert(idx + 1, novo_bloco)
-            
-        print(f"Bloco alocado: ID {pid} ({tamanho} bytes) usando {alg}.")
+            self.memoria.insert(idx + 1, BlocoMemoria(None, sobra, livre=True))
+
+        print(f"Bloco alocado: ID {pid} ({tamanho} bytes) usando {alg_nome}.")
+
 
     # Libera memória de um processo e faz merge de blocos adjacentes.
     def free_id(self, id_alvo):
