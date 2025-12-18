@@ -1,6 +1,5 @@
 from typing import List
-from base import Page
-from base import AlgoritmoSubstituicaoGenerico
+from .base import Page, AlgoritmoSubstituicaoGenerico
 
 class LRU(AlgoritmoSubstituicaoGenerico):
     def selecionar_alvo(self, future_references: List[int]) -> Page:
@@ -9,5 +8,4 @@ class LRU(AlgoritmoSubstituicaoGenerico):
         return alvo
 
     def atualizar_uso(self, page: Page, is_hit: bool):
-        if is_hit:
-            page.last_access_time = self.current_time
+        page.last_access_time = self.current_time

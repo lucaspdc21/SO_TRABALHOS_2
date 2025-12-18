@@ -1,5 +1,5 @@
 from typing import List
-from models import Statistics
+from .models import Statistics
 from algortimos.base import AlgoritmoSubstituicaoGenerico
 
 class Simulator:
@@ -32,6 +32,8 @@ class Simulator:
                 self.stats.page_faults += 1
                 
         self.stats.evictions = max(0, self.stats.page_faults - self.algorithm.num_frames)
+        return self
+
 
     def print_report(self, algo_name: str):
         # Formato exato solicitado no PDF 

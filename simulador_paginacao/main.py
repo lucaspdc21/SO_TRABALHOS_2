@@ -2,9 +2,9 @@ import argparse
 
 from algortimos.fifo import FIFO
 from algortimos.lru import LRU
-from algortimos.opt import Otimo
+from algortimos.opt import OPT
 from algortimos.clock import Clock
-from algortimos.segunda_chance import SegundaChance
+from algortimos.second_chance import SecondChance
 from algortimos.nru import NRU
 from algortimos.lfu import LFU
 from algortimos.mfu import MFU
@@ -23,9 +23,9 @@ def main():
     algoritmos_map = {
         'lru': LRU,
         'fifo': FIFO,
-        'otimo': Otimo,
+        'otimo': OPT,
         'clock': Clock,
-        'segunda_chance': SegundaChance,
+        'second_chance': SecondChance,
         'nru': NRU,
         'lfu': LFU,
         'mfu': MFU,

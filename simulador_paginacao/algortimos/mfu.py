@@ -1,6 +1,5 @@
 from typing import List
-from base import Page
-from base import AlgoritmoSubstituicaoGenerico
+from .base import Page, AlgoritmoSubstituicaoGenerico
 
 class MFU(AlgoritmoSubstituicaoGenerico):
     def selecionar_alvo(self, future_references: List[int]) -> Page:
