@@ -5,7 +5,7 @@ from algortimos.base import AlgoritmoSubstituicaoGenerico
 class Simulator:
     def __init__(self, algorithm: AlgoritmoSubstituicaoGenerico, trace_file: str):
         self.algorithm = algorithm
-        self.trace_file = trace_file
+        self.trace_file = trace_file 
         self.stats = Statistics()
         self.references: List[int] = []
 
