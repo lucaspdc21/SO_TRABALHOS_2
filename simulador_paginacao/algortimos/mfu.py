@@ -3,7 +3,7 @@ from .base import Page, AlgoritmoSubstituicaoGenerico
 
 class MFU(AlgoritmoSubstituicaoGenerico):
     def selecionar_alvo(self, future_references: List[int]) -> Page:
-        # Retorna a página menos recentemente usada
+        # Retorna a página mais frequentemente usada
         alvo = max(self.memory, key=lambda p: (p.frequency, -p.load_time))
         return alvo
 
